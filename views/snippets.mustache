@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Snippets</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/styles/gruvbox-dark.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <header class="home-header">
+      <nav>
+        <ul class="nav-row">
+          <li class="nav-item">
+            <div class="active-user-pic">
+            </div>
+            {{#currentUser}}
+            <div class="displayname">
+            {{.}}
+            </div>
+            {{/currentUser}}
+          </li>
+          <li class="nav-item">
+              <a href="/logout" class="logout-button">Logout</a>
+          </li class="nav-item">
+          <li class="nav-item">
+              <a href="/home" class="home-button">Home</a>
+          </li>
+          <li>
+            <div class="logo"></div>
+            <span class="snippets-top">Snippets</span>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="body-wrapper">
+      {{#snippet}}
+      {{^edit}}
+      <div class="snippet-wrapper">
+        <h3>{{title}}</h3>
+        <div class="snippetUser">{{user}}</div>
+        <pre><code class="{{language}}">{{text}}</code></pre>
+        <div class="snippetNotes">{{notes}}</div>
+        <div class="snippetLanguage"><a href="/home/findByLanguage/{{language}}">{{language}}</a></div>
+          <ul class="tag-list">
+            {{#tags}}
+              <li class="newSnippetTag"><a href="/home/searchByTag/{{tag}}">{{tag}}</a></li>
+            {{/tags}}
+          </ul>
+          <form action="/snippet/addTags/{{id}}" method="post" class="addTags">
+            <select name="tags" class="tagSelect">
+              <option value="default">ADD A TAG</option>
+              <option value="Authentication">Authentication</option>
+              <option value="Front-End">Front-End</option>
+              <option value="Middleware">Middleware</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Mongo">Mongo</option>
+              <option value="SQL">SQL</option>
+              <option value="Boilerplate">Boilerplate</option>
+              <option value="Scripts">Scripts</option>
+            </select>
+            <input type="submit" class="btn btn-primary">
+          </form>
+        </div>
+        {{/edit}}
+        {{#edit}}
+        <span></span>
+        {{/edit}}
+        {{#editable}}
+          <form action="/snippet/{{id}}" method="post" class="editSnippet">
+            <button type="submit" class="editButton" name="editButton" value="edit">Edit</button>
+          </form>
+        {{/editable}}
+        {{^editable}}
+        <span></span>
+        {{/editable}}
+        {{#edit}}
+        <form action="/snippet/{{id}}/edit" method="post" class="newSnippet">
+          <label for="title" class="snippet-title">Snippet Title</label>
+          <input type="text" name="title" class="title-input" value="{{title}}">
+          <label for="snippet">Edit your snippet</label>
+          <textarea name="snippet">{{text}}</textarea>
+          <label for="notes">Additional Notes</label>
+          <input type="text" name="notes" class="notes-input" value="{{notes}}">
+          <label for="language">Language</label>
+          <input type="submit" class="btn btn-primary">
+        </form>
+        <form action="/home" method="post" class="delete-button">
+          <button type="submit" class="deleteButton" name="deleteButton" value="{{id}}">Delete</button>
+        </form>
+        {{/edit}}
+        {{^edit}}
+        <span></span>
+        {{/edit}}
+      {{/snippet}}
+      <form action="/home" method="get" class="return-button">
+        <button type="submit" class="returnButton" name="returnButton">Back to All Snippets</button>
+      </form>
+    </div>
+  </body>
+</html>

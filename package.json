@@ -1,0 +1,40 @@
+{
+  "name": "week-eight-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^4.0.0-alpha.6",
+    "cookie-parser": "^1.4.3",
+    "debug": "~2.6.3",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "express-validator": "^3.2.1",
+    "highlight.js": "^9.12.0",
+    "jquery": "^3.2.1",
+    "mongoose": "^4.11.3",
+    "mongoose-relationship": "^0.1.5",
+    "morgan": "~1.8.1",
+    "mustache": "^2.3.0",
+    "mustache-express": "^1.2.5",
+    "node-syntaxhighlighter": "^0.8.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "passport-session": "^1.0.2",
+    "path": "^0.12.7",
+    "serve-favicon": "~2.4.2"
+  },
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

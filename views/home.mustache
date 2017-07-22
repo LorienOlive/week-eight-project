@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Snippets - Home</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arta.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <header class="home-header">
+      <nav>
+        <ul class="nav-row">
+          <li class="nav-item">
+            <div class="active-user-pic">
+            </div>
+            {{#currentUser}}
+            <div class="displayname">
+            {{.}}
+            </div>
+            {{/currentUser}}
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="logout-button">Logout</a>
+          </li class="nav-item">
+            <div class="logo"></div>
+            <span class="snippetsTop">Snippets</span>
+          <li>
+        </ul>
+      </nav>
+    </header>
+    <div class="body-wrapper">
+      <form action="/home" method="post" class="newSnippet">
+        <label for="title" class="snippet-title">Snippet Title</label>
+        <input type="text" name="title" class="title-input">
+        <label for="snippet">Paste your snippet</label>
+        <textarea type="text" name="snippet" id="editor" value=""></textarea>
+        <label for="notes">Additional Notes</label>
+        <input type="text" name="notes" class="notes-input">
+        <label for="language">Language</label>
+        <select name="language" class="language">
+          <option value="default">SELECT A LANGUAGE</option>
+          <option value="Javascript">Javascript</option>
+          <option value="Ruby">Ruby</option>
+          <option value="Java">Java</option>
+          <option value="Python">Python</option>
+        </select>
+        <input type="submit" class="btn btn-primary">
+      </form>
+      <form action="/home" method="get" class="return-button">
+        <button type="submit" class="returnButton" name="returnButton">Back to All Snippets</button>
+      </form>
+      <div class="snippet-wrapper">
+        <ul class="snippet-list">
+          {{#snippet}}
+          <li class="snippet">
+            <h3><a href="/snippet/{{id}}">{{title}}</a></h3>
+            <div class="newSnippetUser"><a href="/home/findByUser/{{_creator}}">{{creator}}</a></div>
+            <pre><code class="{{language}}">{{text}}</code></pre>
+            <div class="newSnippetNotes">{{notes}}</div>
+            <div class="newSnippetLanguage"><a href="/home/findByLanguage/{{language}}">{{language}}</a></div>
+            <ul class="newSnippetTags">
+            {{#tags}}
+              <li class="newSnippetTag"><a href="/home/searchByTag/{{tag}}">{{tag}}</a></li>
+            {{/tags}}
+            </ul>
+            <form action="/home/addTags/{{id}}" method="post" class="addTags">
+              <select name="tags" class="tagSelect">
+                <option value="default">SELECT A TAG</option>
+                <option value="Authentication">Authentication</option>
+                <option value="Front-End">Front-End</option>
+                <option value="Middleware">Middleware</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Mongo">Mongo</option>
+                <option value="SQL">SQL</option>
+                <option value="Boilerplate">Boilerplate</option>
+                <option value="Scripts">Scripts</option>
+              </select>
+              <input type="submit" class="btn btn-primary">
+            </form>
+            <form action="/home" method="post" class="delete-button">
+              <button type="submit" class="deleteButton" name="deleteButton" value="{{id}}">Delete</button>
+            </form>
+          </li>
+          {{/snippet}}
+        </ul>
+      </div>
+    </div>
+    <footer>
+      <div class="logo"></div>
+      <div class="snippets-bottom"></div>
+    </footer>
+
+
+  </body>
+</html>
